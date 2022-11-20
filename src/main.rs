@@ -1,9 +1,12 @@
-use std::io::{ stdin, Error };
 mod table;
+mod player;
+
+use std::io::{ stdin, Error };
+use player::Player;
 
 fn main() {
     let mut table: table::Table = table::Table::new();
-    let mut turn: i32 = 0;
+    let mut player: Player = Player::One;
 
     loop {
         let mut input_buf: String = String::new();
@@ -17,13 +20,20 @@ fn main() {
             Err(_) => {}
         }
 
-        table.assign(input_buf.trim(), turn);
+        let assign_result = table.try_assign(input_buf.trim(), player);
 
-        if turn == 1 {
-            turn = 0
-        } else {
-            turn = 1
-        }
+        match assign_result {
+            Ok(_) => {
+                player = if player == Player::One {
+                    Player::Two
+                } else {
+                    Player::One
+                };
+            },
+            Err(error) => {
+                println!("{}", error);
+            }
+        } 
     }
 
 }

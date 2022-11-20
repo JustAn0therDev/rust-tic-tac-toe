@@ -1,5 +1,7 @@
 mod assign;
+
 use assign::Assign;
+use crate::player::Player;
 
 pub struct Table {
 	pub a1_assigned: Option<Assign>,
@@ -28,7 +30,7 @@ impl Table {
 		}
 	}
 
-	fn get_assigned_symbol(opt: &Option<Assign>) -> &'static str {
+	fn get_assigned_symbol(opt: &Option<Assign>) -> &str {
 		match opt {
 			Some(assigned) => {
 				match assigned {
@@ -50,27 +52,30 @@ impl Table {
 		table
 	}
 
-	pub fn assign(&mut self, cell: &str, turn: i32) {
-		let assign_value: Assign;
+	pub fn try_assign(&mut self, cell: &str, player: Player) -> Result<(), &str> {
+		let assign_value: Option<Assign>;
+		let mut result: Result<(), &str> = Ok(());
 
-		if turn == 0 {
-			assign_value = Assign::Circle;
+		if player == Player::One {
+			assign_value = Some(Assign::Circle);
 		} else {
-			assign_value = Assign::X;
+			assign_value = Some(Assign::X);
 		}
 
 		match cell {
-			"a1" => self.a1_assigned = Some(assign_value),
-			"a2" => self.a2_assigned = Some(assign_value),
-			"a3" => self.a3_assigned = Some(assign_value),
-			"b1" => self.b1_assigned = Some(assign_value),
-			"b2" => self.b2_assigned = Some(assign_value),
-			"b3" => self.b3_assigned = Some(assign_value),
-			"c1" => self.c1_assigned = Some(assign_value),
-			"c2" => self.c2_assigned = Some(assign_value),
-			"c3" => self.c3_assigned = Some(assign_value),
-			_ => { println!("Didn't find anything. Cell: {}", cell) }
+			"a1" => { self.a1_assigned = assign_value; },
+			"a2" => self.a2_assigned = assign_value,
+			"a3" => self.a3_assigned = assign_value,
+			"b1" => self.b1_assigned = assign_value,
+			"b2" => self.b2_assigned = assign_value,
+			"b3" => self.b3_assigned = assign_value,
+			"c1" => self.c1_assigned = assign_value,
+			"c2" => self.c2_assigned = assign_value,
+			"c3" => self.c3_assigned = assign_value,
+			_ => { result = Err("Didn't find anything! Please try again."); }
 		};
+
+		result
 	}
 
 }
