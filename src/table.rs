@@ -2,8 +2,6 @@ mod assign;
 use assign::Assign;
 
 pub struct Table {
-	// TODO: instead of "Assign", these fields should have an Option (or union) 
-	// indicating whether the value is a circle or an X.
 	pub a1_assigned: Option<Assign>,
 	pub a2_assigned: Option<Assign>,
 	pub a3_assigned: Option<Assign>,
@@ -30,35 +28,49 @@ impl Table {
 		}
 	}
 
-	fn get_assigned_symbol(opt: &Option<Assign>) -> Option<&'static str> {
+	fn get_assigned_symbol(opt: &Option<Assign>) -> &'static str {
 		match opt {
 			Some(assigned) => {
 				match assigned {
-					assign::Assign::Circle => Some("O"),
-					assign::Assign::X => Some("X")
+					Assign::Circle => "O",
+					Assign::X => "X",
 				}
 			},
-			None => Some(" ")
+			None => " "
 		} 
 	}
 
 	pub fn get_table(&self) -> String {
 		let mut table = String::new();
 
-		table.push_str(format!("{} | {} | {} \n", Table::get_assigned_symbol(&self.a1_assigned).unwrap(), Table::get_assigned_symbol(&self.a2_assigned).unwrap(), Table::get_assigned_symbol(&self.a3_assigned).unwrap()).as_str());
-		table.push_str(format!("{} | {} | {} \n", Table::get_assigned_symbol(&self.b1_assigned).unwrap(), Table::get_assigned_symbol(&self.b2_assigned).unwrap(), Table::get_assigned_symbol(&self.b3_assigned).unwrap()).as_str());
-		table.push_str(format!("{} | {} | {} \n", Table::get_assigned_symbol(&self.c1_assigned).unwrap(), Table::get_assigned_symbol(&self.c2_assigned).unwrap(), Table::get_assigned_symbol(&self.c3_assigned).unwrap()).as_str());
+		table.push_str(format!("{} | {} | {} \n", Table::get_assigned_symbol(&self.a1_assigned), Table::get_assigned_symbol(&self.a2_assigned), Table::get_assigned_symbol(&self.a3_assigned)).as_str());
+		table.push_str(format!("{} | {} | {} \n", Table::get_assigned_symbol(&self.b1_assigned), Table::get_assigned_symbol(&self.b2_assigned), Table::get_assigned_symbol(&self.b3_assigned)).as_str());
+		table.push_str(format!("{} | {} | {} \n", Table::get_assigned_symbol(&self.c1_assigned), Table::get_assigned_symbol(&self.c2_assigned), Table::get_assigned_symbol(&self.c3_assigned)).as_str());
 
 		table
 	}
 
 	pub fn assign(&mut self, cell: &str, turn: i32) {
-		if cell == "a1" {
-			if turn == 1 {
-				self.a1_assigned = Some(Assign::Circle);
-			} else {
-				self.a1_assigned = Some(Assign::X);
-			}
+		let assign_value: Assign;
+
+		if turn == 0 {
+			assign_value = Assign::Circle;
+		} else {
+			assign_value = Assign::X;
 		}
+
+		match cell {
+			"a1" => self.a1_assigned = Some(assign_value),
+			"a2" => self.a2_assigned = Some(assign_value),
+			"a3" => self.a3_assigned = Some(assign_value),
+			"b1" => self.b1_assigned = Some(assign_value),
+			"b2" => self.b2_assigned = Some(assign_value),
+			"b3" => self.b3_assigned = Some(assign_value),
+			"c1" => self.c1_assigned = Some(assign_value),
+			"c2" => self.c2_assigned = Some(assign_value),
+			"c3" => self.c3_assigned = Some(assign_value),
+			_ => { println!("Didn't find anything. Cell: {}", cell) }
+		};
 	}
+
 }
