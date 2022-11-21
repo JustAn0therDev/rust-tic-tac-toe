@@ -20,7 +20,7 @@ fn main() {
             Err(_) => {}
         }
 
-        let assign_result = table.try_assign(input_buf.trim(), player);
+        let assign_result = table.assign(input_buf.trim(), player);
 
         match assign_result {
             Ok(_) => {

@@ -52,9 +52,8 @@ impl Table {
 		table
 	}
 
-	pub fn try_assign(&mut self, cell: &str, player: Player) -> Result<(), &str> {
+	pub fn assign(&mut self, cell: &str, player: Player) -> Result<(), &str> {
 		let assign_value: Option<Assign>;
-		let mut result: Result<(), &str> = Ok(());
 
 		if player == Player::One {
 			assign_value = Some(Assign::Circle);
@@ -63,17 +62,25 @@ impl Table {
 		}
 
 		match cell {
-			"a1" => { self.a1_assigned = assign_value; },
-			"a2" => self.a2_assigned = assign_value,
-			"a3" => self.a3_assigned = assign_value,
-			"b1" => self.b1_assigned = assign_value,
-			"b2" => self.b2_assigned = assign_value,
-			"b3" => self.b3_assigned = assign_value,
-			"c1" => self.c1_assigned = assign_value,
-			"c2" => self.c2_assigned = assign_value,
-			"c3" => self.c3_assigned = assign_value,
-			_ => { result = Err("Didn't find anything! Please try again."); }
-		};
+			"a1" => Table::try_assign_value(&mut self.a1_assigned, assign_value),
+			"a2" => Table::try_assign_value(&mut self.a2_assigned, assign_value),
+			"a3" => Table::try_assign_value(&mut self.a3_assigned, assign_value),
+			"b1" => Table::try_assign_value(&mut self.b1_assigned, assign_value),
+			"b2" => Table::try_assign_value(&mut self.b2_assigned, assign_value),
+			"b3" => Table::try_assign_value(&mut self.b3_assigned, assign_value),
+			"c1" => Table::try_assign_value(&mut self.c1_assigned, assign_value),
+			"c2" => Table::try_assign_value(&mut self.c2_assigned, assign_value),
+			"c3" => Table::try_assign_value(&mut self.c3_assigned, assign_value),
+			_ => Err("Didn't find anything! Please try again.")
+		}
+	}
+
+	fn try_assign_value(cell: &mut Option<Assign>, assign_value: Option<Assign>) -> Result<(), &str> {
+		let mut result: Result<(), &str> = Ok(());
+		match cell {
+			Some(_) => result = Err("This cell already has a value. Please select another!"),
+			None => *cell = assign_value
+		}
 
 		result
 	}
