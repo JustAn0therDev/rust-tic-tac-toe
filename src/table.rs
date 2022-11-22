@@ -1,7 +1,4 @@
-mod assign;
-
-use assign::Assign;
-use crate::player::Player;
+use crate::assign::Assign;
 
 pub struct Table {
 	pub a1_assigned: Option<Assign>,
@@ -53,25 +50,17 @@ impl Table {
 		table
 	}
 
-	pub fn assign(&mut self, cell: &str, player: Player) -> Result<(), &str> {
-		let assign_value: Option<Assign>;
-
-		if player == Player::One {
-			assign_value = Some(Assign::Circle);
-		} else {
-			assign_value = Some(Assign::X);
-		}
-
+	pub fn assign(&mut self, cell: &str, assign: Assign) -> Result<(), &str> {
 		match cell {
-			"a1" => Table::try_assign_value(&mut self.a1_assigned, assign_value),
-			"a2" => Table::try_assign_value(&mut self.a2_assigned, assign_value),
-			"a3" => Table::try_assign_value(&mut self.a3_assigned, assign_value),
-			"b1" => Table::try_assign_value(&mut self.b1_assigned, assign_value),
-			"b2" => Table::try_assign_value(&mut self.b2_assigned, assign_value),
-			"b3" => Table::try_assign_value(&mut self.b3_assigned, assign_value),
-			"c1" => Table::try_assign_value(&mut self.c1_assigned, assign_value),
-			"c2" => Table::try_assign_value(&mut self.c2_assigned, assign_value),
-			"c3" => Table::try_assign_value(&mut self.c3_assigned, assign_value),
+			"a1" => Table::try_assign_value(&mut self.a1_assigned, Some(assign)),
+			"a2" => Table::try_assign_value(&mut self.a2_assigned, Some(assign)),
+			"a3" => Table::try_assign_value(&mut self.a3_assigned, Some(assign)),
+			"b1" => Table::try_assign_value(&mut self.b1_assigned, Some(assign)),
+			"b2" => Table::try_assign_value(&mut self.b2_assigned, Some(assign)),
+			"b3" => Table::try_assign_value(&mut self.b3_assigned, Some(assign)),
+			"c1" => Table::try_assign_value(&mut self.c1_assigned, Some(assign)),
+			"c2" => Table::try_assign_value(&mut self.c2_assigned, Some(assign)),
+			"c3" => Table::try_assign_value(&mut self.c3_assigned, Some(assign)),
 			_ => Err("Didn't find anything! Please try again.")
 		}
 	}

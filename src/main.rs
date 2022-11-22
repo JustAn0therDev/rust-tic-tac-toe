@@ -1,12 +1,12 @@
 mod table;
-mod player;
+mod assign;
 
 use std::io::{ stdin, Error };
-use player::Player;
+use assign::Assign;
 
 fn main() {
     let mut table: table::Table = table::Table::new();
-    let mut player: Player = Player::One;
+    let mut assign: Assign = Assign::Circle;
 
     loop {
         let mut input_buf: String = String::new();
@@ -25,14 +25,14 @@ fn main() {
             Err(_) => {}
         }
 
-        let assign_result = table.assign(input_buf.trim(), player);
+        let assign_result = table.assign(input_buf.trim(), assign);
 
         match assign_result {
             Ok(_) => {
-                player = if player == Player::One {
-                    Player::Two
+                assign = if assign == Assign::Circle {
+                    Assign::X
                 } else {
-                    Player::One
+                    Assign::Circle
                 };
             },
             Err(error) => {
