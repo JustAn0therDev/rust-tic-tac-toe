@@ -15,7 +15,8 @@ fn main() {
         println!("{}", table.get_table());
 
         if table.game_over() {
-            println!("Game over!");
+            println!("{}",
+                if assign == Assign::Circle { "Player 2 wins!" } else { "Player 1 wins!" });
             break;
         }
 
