@@ -13,6 +13,11 @@ fn main() {
 
         println!("{}", table.get_table());
 
+        if table.game_over() {
+            println!("Game over!");
+            break;
+        }
+
         let input_result: Result<usize, Error> = stdin().read_line(&mut input_buf);
 
         match input_result {
@@ -33,7 +38,7 @@ fn main() {
             Err(error) => {
                 println!("{}", error);
             }
-        } 
+        }
     }
 
 }

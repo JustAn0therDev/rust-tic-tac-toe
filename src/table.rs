@@ -86,4 +86,240 @@ impl Table {
 		result
 	}
 
+	pub fn game_over(&self) -> bool {
+		if self.check_game_over_by_first_line() {
+			return true;
+		}
+
+		if self.check_game_over_by_second_line() {
+			return true;
+		}
+
+		if self.check_game_over_by_third_line() {
+			return true;
+		}
+
+		if self.check_game_over_by_first_column() {
+			return true;
+		}
+
+		if self.check_game_over_by_second_column() {
+			return true;
+		}
+
+		if self.check_game_over_by_third_column() {
+			return true;
+		}
+
+		if self.check_game_over_by_diagonal_left_to_right() {
+			return true;
+		}
+
+		if self.check_game_over_by_diagonal_right_to_left() {
+			return true;
+		}
+
+		return false;
+	}
+
+	fn check_game_over_by_first_line(&self) -> bool {
+		let mut game_over: bool = true;
+
+		match self.a1_assigned {
+			Some(_) => {},
+			None => game_over = false,
+		}
+
+		match self.a2_assigned {
+			Some(_) => {},
+			None => game_over = false,
+		}
+
+		match self.a3_assigned {
+			Some(_) => {},
+			None => game_over = false,
+		}
+
+		if game_over {
+			return self.a1_assigned == self.a2_assigned && self.a2_assigned == self.a3_assigned;
+		}
+
+		false
+	}
+
+	fn check_game_over_by_second_line(&self) -> bool {
+		let mut game_over: bool = true;
+
+		match self.b1_assigned {
+			Some(_) => {},
+			None => game_over = false,
+		}
+
+		match self.b2_assigned {
+			Some(_) => {},
+			None => game_over = false,
+		}
+
+		match self.b3_assigned {
+			Some(_) => {},
+			None => game_over = false,
+		}
+
+		if game_over {
+			return self.b1_assigned == self.b2_assigned && self.b2_assigned == self.b3_assigned;
+		}
+
+		false
+	}
+
+	fn check_game_over_by_third_line(&self) -> bool {
+		let mut game_over: bool = true;
+
+		match self.c1_assigned {
+			Some(_) => {},
+			None => game_over = false,
+		}
+
+		match self.c2_assigned {
+			Some(_) => {},
+			None => game_over = false,
+		}
+
+		match self.c3_assigned {
+			Some(_) => {},
+			None => game_over = false,
+		}
+
+		if game_over {
+			return self.c1_assigned == self.c2_assigned && self.c2_assigned == self.c3_assigned;
+		}
+
+		false
+	}
+
+	fn check_game_over_by_first_column(&self) -> bool {
+		let mut game_over: bool = true;
+
+		match self.a1_assigned {
+			Some(_) => {},
+			None => game_over = false,
+		}
+
+		match self.b1_assigned {
+			Some(_) => {},
+			None => game_over = false,
+		}
+
+		match self.c1_assigned {
+			Some(_) => {},
+			None => game_over = false,
+		}
+
+		if game_over {
+			return self.a1_assigned == self.b1_assigned && self.b1_assigned == self.c1_assigned;
+		}
+
+		false
+	}
+
+	fn check_game_over_by_second_column(&self) -> bool {
+		let mut game_over: bool = true;
+
+		match self.a2_assigned {
+			Some(_) => {},
+			None => game_over = false,
+		}
+
+		match self.b2_assigned {
+			Some(_) => {},
+			None => game_over = false,
+		}
+
+		match self.c2_assigned {
+			Some(_) => {},
+			None => game_over = false,
+		}
+
+		if game_over {
+			return self.a2_assigned == self.b2_assigned && self.b2_assigned == self.c2_assigned;
+		}
+
+		false
+	}
+
+	fn check_game_over_by_third_column(&self) -> bool {
+		let mut game_over: bool = true;
+
+		match self.a3_assigned {
+			Some(_) => {},
+			None => game_over = false,
+		}
+
+		match self.b3_assigned {
+			Some(_) => {},
+			None => game_over = false,
+		}
+
+		match self.c3_assigned {
+			Some(_) => {},
+			None => game_over = false,
+		}
+
+		if game_over {
+			return self.a3_assigned == self.b3_assigned && self.b3_assigned == self.c3_assigned;
+		}
+
+		false
+	}
+
+	fn check_game_over_by_diagonal_left_to_right(&self) -> bool {
+		let mut game_over: bool = true;
+
+		match self.a1_assigned {
+			Some(_) => {},
+			None => game_over = false,
+		}
+
+		match self.b2_assigned {
+			Some(_) => {},
+			None => game_over = false,
+		}
+
+		match self.c3_assigned {
+			Some(_) => {},
+			None => game_over = false,
+		}
+
+		if game_over {
+			return self.a1_assigned == self.b2_assigned && self.b2_assigned == self.c3_assigned;
+		}
+
+		false
+	}
+
+	fn check_game_over_by_diagonal_right_to_left(&self) -> bool {
+		let mut game_over: bool = true;
+
+		match self.a3_assigned {
+			Some(_) => {},
+			None => game_over = false,
+		}
+
+		match self.b2_assigned {
+			Some(_) => {},
+			None => game_over = false,
+		}
+
+		match self.c1_assigned {
+			Some(_) => {},
+			None => game_over = false,
+		}
+
+		if game_over {
+			return self.a3_assigned == self.b2_assigned && self.b2_assigned == self.c1_assigned;
+		}
+
+		false
+	}
+
 }
