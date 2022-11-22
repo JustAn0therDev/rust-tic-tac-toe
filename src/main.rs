@@ -1,5 +1,6 @@
 mod table;
 mod assign;
+mod tests;
 
 use std::io::{ stdin, Error };
 use assign::Assign;

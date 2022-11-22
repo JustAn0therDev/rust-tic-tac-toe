@@ -43,9 +43,30 @@ impl Table {
 		let mut table = String::new();
 
 		table.push_str("  1 | 2 | 3 \n");
-		table.push_str(format!("A {} | {} | {} \n", Table::get_assigned_symbol(&self.a1_assigned), Table::get_assigned_symbol(&self.a2_assigned), Table::get_assigned_symbol(&self.a3_assigned)).as_str());
-		table.push_str(format!("B {} | {} | {} \n", Table::get_assigned_symbol(&self.b1_assigned), Table::get_assigned_symbol(&self.b2_assigned), Table::get_assigned_symbol(&self.b3_assigned)).as_str());
-		table.push_str(format!("C {} | {} | {} \n", Table::get_assigned_symbol(&self.c1_assigned), Table::get_assigned_symbol(&self.c2_assigned), Table::get_assigned_symbol(&self.c3_assigned)).as_str());
+		
+		table.push_str(
+			format!(
+				"A {} | {} | {} \n", 
+				Table::get_assigned_symbol(&self.a1_assigned), 
+				Table::get_assigned_symbol(&self.a2_assigned), 
+				Table::get_assigned_symbol(&self.a3_assigned)
+			).as_str());
+
+		table.push_str(
+			format!(
+				"B {} | {} | {} \n", 
+				Table::get_assigned_symbol(&self.b1_assigned), 
+				Table::get_assigned_symbol(&self.b2_assigned), 
+				Table::get_assigned_symbol(&self.b3_assigned)
+			).as_str());
+		
+		table.push_str(
+			format!(
+				"C {} | {} | {} \n", 
+				Table::get_assigned_symbol(&self.c1_assigned), 
+				Table::get_assigned_symbol(&self.c2_assigned), 
+				Table::get_assigned_symbol(&self.c3_assigned)
+			).as_str());
 
 		table
 	}
